@@ -1,0 +1,23 @@
+def func(x):
+    return x**5 - 3*x**3 - 5*x + 4
+
+def derivada(x):
+    return 5*x**4 - 9*x**2 - 5
+
+def metodo_newton(inicial, precisao=1e-6, iteracoes=1000):
+    valor_atual = inicial
+    for _ in range(iteracoes):
+        funcao_valor = func(valor_atual)
+        if abs(funcao_valor) < precisao:
+            return valor_atual
+        derivada_valor = derivada(valor_atual)
+        if derivada_valor == 0:
+            raise ValueError("Derivada zero! O método não pode continuar.")
+        valor_atual = valor_atual - funcao_valor / derivada_valor
+    raise ValueError("O método não convergiu dentro do número máximo de iterações.")
+
+inicial = 1
+precisao = 1e-6
+
+raiz = metodo_newton(inicial, precisao)
+print(f"A raiz aproximada é: {raiz:.6f}")
